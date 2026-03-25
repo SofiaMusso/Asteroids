@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject ufo;
     private GameObject currentUfo;
 
-    public float spawnDelayMin = 0f;
-    public float spawnDelayMax = 0.1f;
+    public float spawnDelayMin = 5f;
+    public float spawnDelayMax = 10f;
 
     public float screenWidth = 8f;
 
