@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public GameObject[] bigAsteroids;
     public GameObject[] mediumAsteroids;
     public GameObject[] smallAsteroids;
@@ -34,6 +33,29 @@ public class GameManager : MonoBehaviour
     public float spawnDelayMax = 10f;
 
     public float screenWidth = 8f;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        //DontDestroyOnLoad(gameObject);
+
+        asteroids = new Dictionary<AsteroidsManager.Type, GameObject[]>
+        {
+            { AsteroidsManager.Type.Big, bigAsteroids },
+            { AsteroidsManager.Type.Medium, mediumAsteroids },
+            { AsteroidsManager.Type.Small, smallAsteroids }
+        };
+
+        numCurrentBigAsteroids = 0;
+        numCurrentAsteroids = 0;
+        SpawnInitialAsteroids();
+        Debug.Log("Number of Asteroids: " + numCurrentBigAsteroids);
+    }
 
     void Start()
     {
@@ -70,37 +92,6 @@ public class GameManager : MonoBehaviour
             currentUfo.GetComponent<UfoManager>().targetPosition = targetPos;
         }
     }
-
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        asteroids = new Dictionary<AsteroidsManager.Type, GameObject[]>
-        {
-            { AsteroidsManager.Type.Big, bigAsteroids },
-            { AsteroidsManager.Type.Medium, mediumAsteroids },
-            { AsteroidsManager.Type.Small, smallAsteroids }
-        };
-
-        numCurrentBigAsteroids = 0;
-        numCurrentAsteroids = 0;
-        SpawnInitialAsteroids();
-        Debug.Log("Number of Asteroids: " + numCurrentBigAsteroids);
-    }
-
-    /*private void Start()
-    {
-        numCurrentBigAsteroids = 0;
-        SpawnInitialAsteroids();
-        Debug.Log("Number of Asteroids: " + numCurrentBigAsteroids);
-    }*/
 
     private void Update()
     {

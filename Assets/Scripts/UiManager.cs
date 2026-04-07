@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UiManager : MonoBehaviour
 {  
@@ -107,5 +109,15 @@ public class UiManager : MonoBehaviour
         Heart2.SetActive(true);
         Heart1.SetActive(true);
 
+    }
+
+    public void OpenPauseMenu()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ClosePauseMenu()
+    {
+        Time.timeScale = 1;
     }
 }
